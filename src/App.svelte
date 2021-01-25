@@ -1,30 +1,24 @@
 <script>
   import Main from "./pages/main.svelte";
   import Router, { redirect } from "page";
-  import { onMount, afterUpdate } from "svelte"
+  import { onMount, afterUpdate } from "svelte";
 
   let page;
   let params;
 
-
-
   onMount(async () => {
-	 setup_routes();
-  })
-
-
+    setup_routes();
+  });
 
   async function setup_routes() {
     Router("/", () => (page = Main));
-    Router("*", () => (page = NotFound));
     Router.start();
   }
-
-
-
-
-
 </script>
+
+<main>
+  <svelte:component this={page} {params} />
+</main>
 
 <style type="text/scss">
   main {
@@ -34,7 +28,3 @@
     justify-content: center;
   }
 </style>
-
-<main>
-  <svelte:component this={page} {params} />
-</main>

@@ -1,9 +1,5 @@
 <script context="module">
-
-  export function greeting()
-  {
-    console.log("Hello World")
+  export function greeting() {
+    console.log("Hello World");
   }
-
 </script>
-
