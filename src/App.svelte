@@ -1,10 +1,10 @@
-<script>
+<script lang="ts">
   import Main from "./pages/main.svelte";
-  import Router, { redirect } from "page";
-  import { onMount, afterUpdate } from "svelte";
+  import Router from "page";
+  import { onMount } from "svelte";
 
-  let page;
-  let params;
+  let page : any;
+  let params : any;
 
   onMount(async () => {
     setup_routes();

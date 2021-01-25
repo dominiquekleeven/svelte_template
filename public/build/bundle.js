@@ -420,7 +420,7 @@ var app = (function () {
     function create_fragment$1(ctx) {
     	let div;
     	let h1;
-    	let t1;
+    	let t2;
     	let component_template;
     	let current;
     	component_template = new Component_template({ $$inline: true });
@@ -429,12 +429,12 @@ var app = (function () {
     		c: function create() {
     			div = element("div");
     			h1 = element("h1");
-    			h1.textContent = "Hello Svelte";
-    			t1 = space();
+    			h1.textContent = `Hello ${/*test*/ ctx[0].name}`;
+    			t2 = space();
     			create_component(component_template.$$.fragment);
-    			add_location(h1, file$1, 12, 2, 267);
+    			add_location(h1, file$1, 22, 2, 1062);
     			attr_dev(div, "class", "content");
-    			add_location(div, file$1, 11, 0, 242);
+    			add_location(div, file$1, 21, 0, 1037);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -442,7 +442,7 @@ var app = (function () {
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
     			append_dev(div, h1);
-    			append_dev(div, t1);
+    			append_dev(div, t2);
     			mount_component(component_template, div, null);
     			current = true;
     		},
@@ -477,9 +477,48 @@ var app = (function () {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots("Main", slots, []);
 
-    	onMount(async () => {
+    	var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, generator) {
+    		function adopt(value) {
+    			return value instanceof P
+    			? value
+    			: new P(function (resolve) {
+    						resolve(value);
+    					});
+    		}
+
+    		return new (P || (P = Promise))(function (resolve, reject) {
+    				function fulfilled(value) {
+    					try {
+    						step(generator.next(value));
+    					} catch(e) {
+    						reject(e);
+    					}
+    				}
+
+    				function rejected(value) {
+    					try {
+    						step(generator["throw"](value));
+    					} catch(e) {
+    						reject(e);
+    					}
+    				}
+
+    				function step(result) {
+    					result.done
+    					? resolve(result.value)
+    					: adopt(result.value).then(fulfilled, rejected);
+    				}
+
+    				step((generator = generator.apply(thisArg, _arguments || [])).next());
+    			});
+    	};
+
+    	
+    	let test = { name: "Svelte" };
+
+    	onMount(() => __awaiter(void 0, void 0, void 0, function* () {
     		document.title = "Hello World";
-    	});
+    	}));
 
     	const writable_props = [];
 
@@ -487,8 +526,23 @@ var app = (function () {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<Main> was created with unknown prop '${key}'`);
     	});
 
-    	$$self.$capture_state = () => ({ onMount, Component_template });
-    	return [];
+    	$$self.$capture_state = () => ({
+    		__awaiter,
+    		onMount,
+    		Component_template,
+    		test
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ("__awaiter" in $$props) __awaiter = $$props.__awaiter;
+    		if ("test" in $$props) $$invalidate(0, test = $$props.test);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [test];
     }
 
     class Main extends SvelteComponentDev {
@@ -1770,7 +1824,7 @@ var app = (function () {
     			main = element("main");
     			if (switch_instance) create_component(switch_instance.$$.fragment);
     			attr_dev(main, "class", "svelte-1bvqccx");
-    			add_location(main, file$2, 35, 0, 524);
+    			add_location(main, file$2, 25, 0, 1133);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1836,17 +1890,55 @@ var app = (function () {
     function instance$2($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots("App", slots, []);
+
+    	var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, generator) {
+    		function adopt(value) {
+    			return value instanceof P
+    			? value
+    			: new P(function (resolve) {
+    						resolve(value);
+    					});
+    		}
+
+    		return new (P || (P = Promise))(function (resolve, reject) {
+    				function fulfilled(value) {
+    					try {
+    						step(generator.next(value));
+    					} catch(e) {
+    						reject(e);
+    					}
+    				}
+
+    				function rejected(value) {
+    					try {
+    						step(generator["throw"](value));
+    					} catch(e) {
+    						reject(e);
+    					}
+    				}
+
+    				function step(result) {
+    					result.done
+    					? resolve(result.value)
+    					: adopt(result.value).then(fulfilled, rejected);
+    				}
+
+    				step((generator = generator.apply(thisArg, _arguments || [])).next());
+    			});
+    	};
+
     	let page$1;
     	let params;
 
-    	onMount(async () => {
+    	onMount(() => __awaiter(void 0, void 0, void 0, function* () {
     		setup_routes();
-    	});
+    	}));
 
-    	async function setup_routes() {
-    		page("/", () => $$invalidate(0, page$1 = Main));
-    		page("*", () => $$invalidate(0, page$1 = NotFound));
-    		page.start();
+    	function setup_routes() {
+    		return __awaiter(this, void 0, void 0, function* () {
+    			page("/", () => $$invalidate(0, page$1 = Main));
+    			page.start();
+    		});
     	}
 
     	const writable_props = [];
@@ -1856,6 +1948,7 @@ var app = (function () {
     	});
 
     	$$self.$capture_state = () => ({
+    		__awaiter,
     		Main,
     		Router: page,
     		redirect: page.redirect,
@@ -1867,6 +1960,7 @@ var app = (function () {
     	});
 
     	$$self.$inject_state = $$props => {
+    		if ("__awaiter" in $$props) __awaiter = $$props.__awaiter;
     		if ("page" in $$props) $$invalidate(0, page$1 = $$props.page);
     		if ("params" in $$props) $$invalidate(1, params = $$props.params);
     	};
@@ -1893,7 +1987,7 @@ var app = (function () {
     }
 
     const app = new App({
-    	target: document.body,
+        target: document.body,
     });
 
     return app;

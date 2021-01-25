@@ -3,6 +3,8 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
+import sveltePreprocess from 'svelte-preprocess';
+import typescript from '@rollup/plugin-typescript';
 import replace from '@rollup/plugin-replace';
 import autoPreprocess from 'svelte-preprocess';
 
@@ -30,7 +32,7 @@ function serve() {
 }
 
 export default {
-	input: 'src/main.js',
+	input: 'src/main.ts',
 	output: {
 		sourcemap: true,
 		format: 'iife',
@@ -47,6 +49,7 @@ export default {
 			css: css => {
 				css.write('bundle.css');
 			},
+			preprocess: sveltePreprocess(),
 			preprocess: autoPreprocess()
 		}),
 		
@@ -70,6 +73,10 @@ export default {
 			  }),
 		  }),
 		commonjs(),
+		typescript({
+			sourceMap: !production,
+			inlineSources: !production
+		}),
 
 		// In dev mode, call `npm run start` once
 		// the bundle has been generated
