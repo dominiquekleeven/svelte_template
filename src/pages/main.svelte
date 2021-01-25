@@ -5,6 +5,8 @@
   onMount(async () => {
     document.title = "Hello World"
   });
+
+  // process.env.API_URL    - access environment variables
 </script>
 
 <style type="text/scss">
