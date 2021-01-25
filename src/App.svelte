@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Main from "./pages/main.svelte";
+  import Main from "./pages/Main.svelte";
   import Router from "page";
   import { onMount } from "svelte";
 
